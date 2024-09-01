@@ -37,6 +37,9 @@ black = "*"
 hatch = "*"
 jupytext = "*"
 
+[tool.pixi.feature.devdeps.tasks]
+build = "hatch build ."
+
 [tool.pixi.environments]
 dev = { features = ["devdeps"] }
 prod = { features = [] }
