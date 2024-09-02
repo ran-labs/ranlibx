@@ -4,13 +4,15 @@ import typer
 from ranx.cli.subcmds import install
 
 import uvicorn
-import asyncio
-import threading
-import signal
+from ranx.server import UvicornServerProcess
+from ranx import server
 
-from ranx.state import AUTH_FLOW_STATE, AuthFlowState
+from ranx.state import kill_server, set_auth_flow_state, AuthFlowState
 
-import time
+# Dev / Testing stuff
+# import asyncio
+# import threading
+# import time
 
 
 # CLI App
@@ -20,64 +22,68 @@ app = typer.Typer(rich_markup_mode="rich")
 app.add_typer(install.app, name="install")
 
 
+# @app.command()
+# def test():
+#     """For testing purposes"""
+#     
+#     print("Starting Server...")
+#     config = uvicorn.Config(
+#         "ranx.api.main:app",
+#         host="0.0.0.0",
+#         port=8000,
+#         log_level="critical"
+#     )
+#     fastapi_server = uvicorn.Server(config)
+#
+#     # Start the server in a separate thread
+#     server_thread = threading.Thread(target=fastapi_server.run)
+#     server_thread.start()
+#
+#     print("HELLO WORLD")
+#
+#     time.sleep(3)
+#
+#     def stop_server(userver: uvicorn.Server):
+#         userver.should_exit = True
+#         userver.force_exit = True
+#         asyncio.run(userver.shutdown())
+#
+#     # Shutdown the server
+#     print("Shutting Down...")
+#     stop_server(fastapi_server)
+#     print("Server Stopped")
+#
+#     # Wait for the server thread to fully terminate
+#     server_thread.join()
+#
+#     print("Done waiting")
+
+
 @app.command()
-def test():
-    """For testing purposes"""
-    
-    print("Starting Server...")
-    config = uvicorn.Config("ranx.api.main:app", host="0.0.0.0", port=8000, log_level="critical")
-    fastapi_server = uvicorn.Server(config)
-    
-    # Start the server in a separate thread
-    server_thread = threading.Thread(target=fastapi_server.run)
-    server_thread.start()
-
-    print("HELLO WORLD")
-
-    time.sleep(3)
-
-    def stop_server(server: uvicorn.Server):
-        server.should_exit = True
-        server.force_exit = True
-        asyncio.run(server.shutdown())
-
-    # Shutdown the server
-    print("Shutting Down...")
-    stop_server(fastapi_server)
-    print("Server Stopped")
-
-    # Wait for the server thread to fully terminate
-    server_thread.join()
-
-    print("Done waiting")
-
-
-@app.command()
-def open_auth_server(host: str = "127.0.0.1", port: int = 8000):
+def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = False):
     """Opens a Server for RAN Authentication"""
-    global AUTH_FLOW_STATE
+    set_auth_flow_state(AuthFlowState.IN_PROGRESS)
 
-    AUTH_FLOW_STATE = AuthFlowState.IN_PROGRESS
-    
-    # Run the server
-    uvicorn.run(
-        "server:api",
+    # Create the server
+    config = uvicorn.Config(
+        "ranx.api.main:app",
         host=host,
         port=port,
-        reload=False
+        log_level=("info" if verbose else "critical")
     )
+    fastapi_server = uvicorn.Server(config)
 
-    
+    # Set the server (so it persists beyond this function)
+    server.set_active_uvicorn_server_process(UvicornServerProcess.from_server(fastapi_server))
+
+    # Start it
+    server.active_uvicorn_server_process.start()
 
 
 @app.command()
-def close_auth_server():
+def close_auth_server(verbose: bool = False):
     """Closes the RAN Authentication Server"""
-    global AUTH_FLOW_STATE
-
-    AUTH_FLOW_STATE = AuthFlowState.INACTIVE
-    
-    # TODO: kill uvicorn server
+    kill_server(verbose=verbose)
 
 
 # Start the Typer CLI
