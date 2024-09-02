@@ -59,5 +59,5 @@ async def ran_auth_callback(auth_response: RANAuthResponse):
 
 
 def store_token(token: AuthToken):
-    with open(f"{PROJECT_ROOT}/.ranprofile.json", 'w') as dot_ranprofile:
+    with open(f"{PROJECT_ROOT}/{RAN_TOKEN_FILE_NAME}.json", 'w') as dot_ranprofile:
         json.dump(token.dict(), dot_ranprofile)
