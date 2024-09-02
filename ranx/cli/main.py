@@ -38,18 +38,28 @@ def test():
 
     time.sleep(3)
 
-    # async def stop_server(server: uvicorn.Server):
-    #     server.should_exit = True
-    #     await server.shutdown()
+    async def stop_server(server: uvicorn.Server):
+        server.should_exit = True
+        print("Handling")
+        server.handle_exit(signal.SIGTERM, frame=None)
+        print("Handled")
+        await server.shutdown()
 
-    def stop_server(server: uvicorn.Server):
-        server.process.send_signal(signal.SIGTERM)
-        server_thread.join()
+    # def stop_server(server: uvicorn.Server):
+    #     server.process.send_signal(signal.SIGTERM)
+    #     server_thread.join()
 
     # Shutdown the server
     print("Shutting Down...")
-    #asyncio.run(stop_server(fastapi_server))
+    asyncio.run(stop_server(fastapi_server))
     
+    #stop_server(fastapi_server)
+    print("Server Stopped")
+
+    # Wait for the server thread to fully terminate
+    server_thread.join()
+
+    print("Done waiting")
 
 
 @app.command()
