@@ -22,6 +22,33 @@ app = typer.Typer(rich_markup_mode="rich")
 app.add_typer(install.app, name="install")
 
 
+@app.command()
+def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = False):
+    """Opens a Server for RAN Authentication"""
+    set_auth_flow_state(AuthFlowState.IN_PROGRESS)
+
+    # Create the server
+    config = uvicorn.Config(
+        "ranx.api.main:app",
+        host=host,
+        port=port,
+        log_level=("info" if verbose else "critical")
+    )
+    fastapi_server = uvicorn.Server(config)
+
+    # Set the server (so it persists beyond this function)
+    server.set_active_uvicorn_server_process(UvicornServerProcess.from_server(fastapi_server))
+
+    # Start it
+    server.active_uvicorn_server_process.start()
+
+
+@app.command()
+def close_auth_server(verbose: bool = False):
+    """Closes the RAN Authentication Server"""
+    kill_server(verbose=verbose)
+
+
 # @app.command()
 # def test():
 #     """For testing purposes"""
@@ -57,33 +84,6 @@ app.add_typer(install.app, name="install")
 #     server_thread.join()
 #
 #     print("Done waiting")
-
-
-@app.command()
-def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = False):
-    """Opens a Server for RAN Authentication"""
-    set_auth_flow_state(AuthFlowState.IN_PROGRESS)
-
-    # Create the server
-    config = uvicorn.Config(
-        "ranx.api.main:app",
-        host=host,
-        port=port,
-        log_level=("info" if verbose else "critical")
-    )
-    fastapi_server = uvicorn.Server(config)
-
-    # Set the server (so it persists beyond this function)
-    server.set_active_uvicorn_server_process(UvicornServerProcess.from_server(fastapi_server))
-
-    # Start it
-    server.active_uvicorn_server_process.start()
-
-
-@app.command()
-def close_auth_server(verbose: bool = False):
-    """Closes the RAN Authentication Server"""
-    kill_server(verbose=verbose)
 
 
 # Start the Typer CLI
