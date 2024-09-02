@@ -1,5 +1,3 @@
-from typing import List, Dict, Set, Union, Optional
-
 import typer
 from ranx.cli.subcmds import install
 
