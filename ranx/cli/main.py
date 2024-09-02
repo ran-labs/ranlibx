@@ -27,9 +27,6 @@ def test():
     print("Starting Server...")
     fastapi_server = uvicorn.Server(uvicorn.Config("ranx.api.main:app", host="0.0.0.0", port=8000, log_level="info"))
     
-    #asyncio.run(fastapi_server.serve())
-    #server_task = asyncio.create_task(asyncio.run(fastapi_server.serve()))
-
     # Start the server in a separate thread
     server_thread = threading.Thread(target=fastapi_server.run)
     server_thread.start()
@@ -42,15 +39,9 @@ def test():
         server.should_exit = True
         asyncio.run(server.shutdown())
 
-    # def stop_server(server: uvicorn.Server):
-    #     server.process.send_signal(signal.SIGTERM)
-    #     server_thread.join()
-
     # Shutdown the server
     print("Shutting Down...")
     stop_server(fastapi_server)
-    
-    #stop_server(fastapi_server)
     print("Server Stopped")
 
     # Wait for the server thread to fully terminate
