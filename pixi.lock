@@ -3124,7 +3124,7 @@ packages:
   name: ranx
   version: 0.0.1
   path: .
-  sha256: e5b86dfd4301ea71d99b1c62c105ef8df54d7bdb403be5769e4ce40bf29319ad
+  sha256: f101eaf8747609d24adc7687b81f702020f04c4e126043699a9fcc44b68759d4
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13
@@ -3132,6 +3132,7 @@ packages:
   - pydantic>2.0
   - rich>=13.7.1,<13.8
   - uvicorn[standard]>=0.30.6,<0.31
+  - email-validator>=2.2.0,<3
   requires_python: '>=3.9'
   editable: true
 - kind: conda

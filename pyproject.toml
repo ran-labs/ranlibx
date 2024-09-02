@@ -36,7 +36,6 @@ pytest = "*"
 pre-commit = "*"
 black = "*"
 hatch = "*"
-jupytext = "*"
 
 [tool.pixi.feature.devdeps.tasks]
 build = "hatch build ."
