@@ -19,10 +19,33 @@ app = typer.Typer(rich_markup_mode="rich")
 app.add_typer(install.app, name="install")
 
 
+def run_uvicorn_server2():
+    server = multiprocessing.Popen(
+        ["uvicorn", "ranx.api.main:app", "--host", "0.0.0.0", "--port", "8000"],
+        stdout=None,
+        stderr=None,
+    )
+
+    return server
+
+
 def run_uvicorn_server(host: str, port: int):
+    #task = asyncio.create_task(uvicorn.run(app, host=host, port=port))
+    #task.get_loop().run_forever()
+    #asyncio.set_event_loop(loop)
+    
+    #return task.get_loop()
+
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(uvicorn.run(app, host=host, port=port))
+
+
+def worker_function(name):
+    print(f"Hello from {name}")
+    # Simulate some work
+    time.sleep(2)
+    print(f"{name} has finished")
 
 
 @app.command()
@@ -32,20 +55,22 @@ def test():
     def run_fastapi_server():
         run_uvicorn_server(host="0.0.0.0", port=8000)
     
-    fastapi_server_process = multiprocessing.Process(target=run_fastapi_server)
-    asyncio.create_task(fastapi_server_process.start())
+    print("Hello World!")
+    
+    fastapi_server_process = multiprocessing.Process(target=run_fastapi_server, daemon=True)
+    fastapi_server_process.start()
+    running_uvicorn_server = True
     
     print("PROCESS STARTED")
 
-    async def wait():
-        await asyncio.sleep(3)
+    time.sleep(3)
 
-    asyncio.run(wait())
+    print("EXITING PROCESS")
+    fastapi_server_process.terminate()
+    fastapi_server_process.join()
+    print("Process Exited")
 
-    print("SHUTTING DOWN")
-    asyncio.create_task(fastapi_server_process.terminate())
-    asyncio.create_task(fastapi_server_process.join())
-    print("SHUTDOWN COMPLETE.")
+    running_uvicorn_server = False
 
 
 @app.command()
