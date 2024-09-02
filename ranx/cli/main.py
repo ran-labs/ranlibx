@@ -25,7 +25,8 @@ def test():
     """For testing purposes"""
     
     print("Starting Server...")
-    fastapi_server = uvicorn.Server(uvicorn.Config("ranx.api.main:app", host="0.0.0.0", port=8000, log_level="info"))
+    config = uvicorn.Config("ranx.api.main:app", host="0.0.0.0", port=8000, log_level="critical")
+    fastapi_server = uvicorn.Server(config)
     
     # Start the server in a separate thread
     server_thread = threading.Thread(target=fastapi_server.run)
@@ -37,6 +38,7 @@ def test():
 
     def stop_server(server: uvicorn.Server):
         server.should_exit = True
+        server.force_exit = True
         asyncio.run(server.shutdown())
 
     # Shutdown the server
