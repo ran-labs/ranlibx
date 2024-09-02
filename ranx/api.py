@@ -52,7 +52,8 @@ async def ran_auth_listen_state():
     # NOTE: IN_PROGRESS should be initiated via the CLI
     if AUTH_FLOW_STATE != "IN_PROGRESS":
         raise HTTPException(
-            status_code=404, detail="Authentication Flow must be in progress"
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Authentication Flow must be in progress"
         )
 
     while AUTH_FLOW_STATE == "IN_PROGRESS":
@@ -65,7 +66,7 @@ async def ran_auth_listen_state():
 
 class AuthToken(BaseModel):
     value: str
-    expires_in: int
+    #expires_in_secs: int
 
 
 class RANAuthResponse(BaseModel):

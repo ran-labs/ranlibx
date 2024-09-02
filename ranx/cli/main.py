@@ -32,3 +32,4 @@ def close_auth_server():
 # Start the Typer CLI
 if __name__ == "__main__":
     app()
+
