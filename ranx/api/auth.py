@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, status
 from ranx.state import AUTH_FLOW_STATE, AuthFlowState
 from ranx.constants import RAN_TOKEN_FILE_NAME, PROJECT_ROOT
 
+import time
 import json
 
 # Prefix: /auth
@@ -21,7 +22,9 @@ async def ran_auth_listen_state():
         )
 
     while AUTH_FLOW_STATE == AuthFlowState.IN_PROGRESS:
-        pass  # Stalling
+        # Stall
+        #pass
+        time.sleep(0.5)
 
     success: bool = AUTH_FLOW_STATE == AuthFlowState.SUCCESS
 
