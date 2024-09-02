@@ -2972,9 +2972,9 @@ packages:
   timestamp: 1723018560445
 - kind: pypi
   name: ranx
-  version: 0.1.0
+  version: 0.0.1
   path: .
-  sha256: f5880bb438d062c9e26c3e5aa7cf8e4451e08718a49aec1dcaccbe6cf71c5dca
+  sha256: 5f77d688dec88ff94461d9d52635b3ad3c7b90a2cd7971724903bd005ee75adb
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13
