@@ -13,17 +13,19 @@ from fastapi.middleware.cors import CORSMiddleware
 # from starlette.middleware.sessions import SessionMiddleware
 
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, ValidationError
+from pydantic import ValidationError
 
 import json
 import logging
 
+from ranx.api import auth
+
 from ranx.constants import RAN_DOMAIN  # ran.so
-from ranx.state import AUTH_FLOW_STATE
 
 
 app = FastAPI(
-    title="RANx (Global)", contact={"name": "Anemo AI", "email": "support@anemo.ai"}
+    title="RANx (Global)",
+    contact={"name": "Anemo AI", "email": "support@anemo.ai"}
 )
 
 app.add_middleware(
@@ -38,49 +40,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Routers
+app.include_router(auth.router, prefix="/auth")
+
 
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to your RANx server!"}
-
-
-# Main part
-
-
-@app.get("/listen_for_auth_completion")
-async def ran_auth_listen_state():
-    # NOTE: IN_PROGRESS should be initiated via the CLI
-    if AUTH_FLOW_STATE != "IN_PROGRESS":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Authentication Flow must be in progress"
-        )
-
-    while AUTH_FLOW_STATE == "IN_PROGRESS":
-        pass
-
-    success: bool = AUTH_FLOW_STATE == "SUCCESS"
-
-    return {"success": success}
-
-
-class AuthToken(BaseModel):
-    value: str
-    #expires_in_secs: int
-
-
-class RANAuthResponse(BaseModel):
-    success: bool
-    message: str
-    auth_token: Optional[AuthToken]
-
-
-@app.post("/auth_callback")
-async def ran_auth_callback(auth_response: RANAuthResponse):
-    global AUTH_FLOW_STATE
-
-    # TODO: handle response
-    AUTH_FLOW_STATE = "SUCCESS" if auth_response.success else "ERROR"
 
 
 @app.exception_handler(exceptions.RequestValidationError)

@@ -2974,7 +2974,7 @@ packages:
   name: ranx
   version: 0.0.1
   path: .
-  sha256: 5f77d688dec88ff94461d9d52635b3ad3c7b90a2cd7971724903bd005ee75adb
+  sha256: 8db455552802c1bf0e05eb1dbe22c5f1fd24ec866824573f81d311822e9e646f
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13

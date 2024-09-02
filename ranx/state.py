@@ -1,4 +1,11 @@
-from typing import Literal
+from enum import Enum
 
 
-AUTH_FLOW_STATE: Literal["IN_PROGRESS", "SUCCESS", "ERROR", "INACTIVE"] = "INACTIVE"
+class AuthFlowState(Enum):
+    INACTIVE = None
+    IN_PROGRESS = 0
+    SUCCESS = 1
+    FAILURE = -1
+
+
+AUTH_FLOW_STATE: AuthFlowState = AuthFlowState.INACTIVE
