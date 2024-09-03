@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException, status
 
 from ranx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
-from ranx.constants import RAN_TOKEN_FILE_NAME, PROJECT_ROOT
+from ranx.constants import RAN_TOKEN_FILEPATH_JSON
 
 import time
 import json
@@ -63,5 +63,5 @@ async def ran_auth_callback(auth_response: RANAuthResponse):
 
 
 def store_token(token: AuthToken):
-    with open(f"{PROJECT_ROOT}/{RAN_TOKEN_FILE_NAME}.json", 'w') as dot_ranprofile:
+    with open(RAN_TOKEN_FILEPATH_JSON, 'w') as dot_ranprofile:
         json.dump(token.dict(), dot_ranprofile)
