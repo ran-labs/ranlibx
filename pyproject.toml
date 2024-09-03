@@ -38,7 +38,7 @@ black = "*"
 hatch = "*"
 
 [tool.pixi.feature.devdeps.tasks]
-build = "hatch build ."
+build = "hatch build ./release"
 
 [tool.pixi.environments]
 dev = { features = ["devdeps"] }
