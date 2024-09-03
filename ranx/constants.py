@@ -8,4 +8,4 @@ RAN_DOMAIN: str = "ran.so"
 
 RAN_TOKEN_FILE_NAME: str = ".ranprofile"
 
-RAN_TOKEN_FILEPATH_JSON: str = f"~/.ran/{RAN_TOKEN_FILE_NAME}.json"
+RAN_AUTH_TOKEN_FILEPATH_JSON: str = f"~/.ran/{RAN_TOKEN_FILE_NAME}.json"
