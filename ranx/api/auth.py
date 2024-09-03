@@ -2,7 +2,7 @@ from typing import List, Dict, Set, Union, Optional
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException, status
 
-from ranx.state import AUTH_FLOW_STATE, AuthFlowState
+from ranx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
 from ranx.constants import RAN_TOKEN_FILE_NAME, PROJECT_ROOT
 
 import time
@@ -44,8 +44,6 @@ class RANAuthResponse(BaseModel):
 
 @router.post("/callback")
 async def ran_auth_callback(auth_response: RANAuthResponse):
-    global AUTH_FLOW_STATE
-
     # Handle Response
     if auth_response.success:
         try:
@@ -54,11 +52,14 @@ async def ran_auth_callback(auth_response: RANAuthResponse):
             print("Authentication Successful!")
         except Exception as e:
             print(f"Error: {e}")
+
+        # Effect: will complete any listeners
+        set_auth_flow_state(AuthFlowState.SUCCESS)
     else:
         print("Error: " + auth_response.message)
 
-    # Effect: will complete any listeners
-    AUTH_FLOW_STATE = AuthFlowState.SUCCESS if auth_response.success else AuthFlowState.FAILURE
+        # Effect: will complete any listeners
+        set_auth_flow_state(AuthFlowState.FAILURE)
 
 
 def store_token(token: AuthToken):
