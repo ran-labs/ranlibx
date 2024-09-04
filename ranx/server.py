@@ -1,5 +1,4 @@
-from typing import List, Dict, Union, Optional
-from pydantic import BaseModel
+from typing import Union, Optional
 
 import asyncio
 import uvicorn
