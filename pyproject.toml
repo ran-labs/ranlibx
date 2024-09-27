@@ -28,14 +28,14 @@ platforms = ["linux-64", "osx-arm64", "win-64"]
 [tool.pixi.pypi-dependencies]
 ranx = { path = ".", editable = true }
 
-[tool.pixi.tasks]
-ranx = "python3 ranx/cli/main.py"
-
 [tool.pixi.feature.devdeps.dependencies]
 pytest = "*"
 pre-commit = "*"
 black = "*"
 hatch = "*"
+
+[tool.pixi.tasks]
+ranx = "python3 ranx/cli/main.py"
 
 [tool.pixi.feature.devdeps.tasks]
 build = "hatch build ./release"
