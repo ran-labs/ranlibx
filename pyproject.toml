@@ -34,8 +34,8 @@ pre-commit = "*"
 black = "*"
 hatch = "*"
 
-[tool.pixi.tasks]
-ranx = "python3 ranx/cli/main.py"
+# [tool.pixi.tasks]
+# ranx = "python3 ranx/cli/main.py"
 
 [tool.pixi.feature.devdeps.tasks]
 build = "hatch build ./release"
