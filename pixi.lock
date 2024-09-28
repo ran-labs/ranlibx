@@ -2605,10 +2605,10 @@ packages:
   sha256: 80bab7bfc629882493af4aa31a4cfa43a4c57c83813253626916b8c7ada83476
   requires_python: '>=3.8'
 - kind: pypi
-  name: ranx
+  name: ranlibx
   version: 0.0.1
   path: .
-  sha256: 27e2f69436e82fcd3baa79f9e860fe22f005c6a54e1fca393949e62d1c3930b2
+  sha256: d1fe3a811ac7c183fb9c1d328c94decc09002829d909d94bfddb1fcc82f3802f
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13

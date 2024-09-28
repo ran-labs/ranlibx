@@ -1,5 +1,5 @@
 [project]
-name = "ranx"
+name = "ranlibx"
 version = "0.0.1"
 description = "Add a short description here"
 authors = [{ name = "Ameer Arsala", email = "ameer.arsala03@gmail.com" }]
@@ -21,12 +21,15 @@ ranx = "ranx.cli.main:app"
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["ranx"]  # account for discrepancy between ranlibx and ranx
+
 [tool.pixi.project]
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64", "win-64"]
 
 [tool.pixi.pypi-dependencies]
-ranx = { path = ".", editable = true }
+ranlibx = { path = ".", editable = true }
 
 [tool.pixi.feature.devdeps.dependencies]
 pytest = "*"
