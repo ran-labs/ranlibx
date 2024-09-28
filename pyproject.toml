@@ -37,7 +37,7 @@ hatch = "*"
 ruff = ">=0.6.8,<0.7"
 
 # [tool.pixi.tasks]
-# ranx = "python3 ranx/cli/main.py"
+## ranx = "python3 ranx/cli/main.py"
 
 [tool.pixi.feature.devdeps.tasks]
 build = "hatch build ./dist"
