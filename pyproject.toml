@@ -30,9 +30,8 @@ ranx = { path = ".", editable = true }
 
 [tool.pixi.feature.devdeps.dependencies]
 pytest = "*"
-pre-commit = "*"
-black = "*"
 hatch = "*"
+ruff = ">=0.6.8,<0.7"
 
 # [tool.pixi.tasks]
 # ranx = "python3 ranx/cli/main.py"
@@ -43,3 +42,6 @@ build = "hatch build ./dist"
 [tool.pixi.environments]
 dev = { features = ["devdeps"] }
 prod = { features = [] }
+
+[tool.ruff]
+target-version = "py39"

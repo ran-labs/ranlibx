@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 RANX_PROJECT_ROOT: str = str(Path(__file__).parent.parent)
 LIB_ROOT: str = str(Path(__file__).parent)
 

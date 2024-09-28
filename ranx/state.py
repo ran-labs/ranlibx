@@ -1,4 +1,5 @@
 from enum import Enum
+
 from ranx import server
 
 
@@ -23,7 +24,7 @@ def kill_server(verbose: bool = False):
     global AUTH_FLOW_STATE
 
     AUTH_FLOW_STATE = AuthFlowState.INACTIVE
-    
+
     # KILL that uvicorn server in COLD BLOOD
     server.active_uvicorn_server_process.end(verbose=verbose)
 

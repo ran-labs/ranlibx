@@ -1,32 +1,26 @@
-from typing import Union, Optional, Literal
+import json
+import logging
+from typing import Literal, Optional, Union
 
 from fastapi import (
-    FastAPI,
     Depends,
+    FastAPI,
     HTTPException,
-    status,
     Request,
     exceptions,
+    status,
 )
 from fastapi.middleware.cors import CORSMiddleware
 
 # from starlette.middleware.sessions import SessionMiddleware
-
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 
-import json
-import logging
-
 from ranx.api import auth
-from ranx.state import kill_server
 from ranx.constants import RAN_DOMAIN  # ran.so
+from ranx.state import kill_server
 
-
-app = FastAPI(
-    title="RANx (Global)",
-    contact={"name": "Anemo AI", "email": "support@anemo.ai"}
-)
+app = FastAPI(title="RANx (Global)", contact={"name": "Anemo AI", "email": "support@anemo.ai"})
 
 app.add_middleware(
     CORSMiddleware,

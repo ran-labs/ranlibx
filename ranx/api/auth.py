@@ -1,12 +1,12 @@
-from typing import Optional
-from pydantic import BaseModel, Field
-from fastapi import APIRouter, HTTPException, status
-
-from ranx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
-from ranx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
-
-import time
 import json
+import time
+from typing import Optional
+
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel, Field
+
+from ranx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
+from ranx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
 
 # Prefix: /auth
 router = APIRouter(tags=["Authentication"])
@@ -17,13 +17,12 @@ async def ran_auth_listen_state():
     # NOTE: IN_PROGRESS must be initiated via the CLI
     if AUTH_FLOW_STATE != AuthFlowState.IN_PROGRESS:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Authentication Flow must be in progress"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Authentication Flow must be in progress"
         )
 
     while AUTH_FLOW_STATE == AuthFlowState.IN_PROGRESS:
         # Stall
-        #pass
+        # pass
         time.sleep(0.5)
 
     success: bool = AUTH_FLOW_STATE == AuthFlowState.SUCCESS
@@ -33,7 +32,7 @@ async def ran_auth_listen_state():
 
 class AuthToken(BaseModel):
     value: str
-    #expires_in_secs: int
+    # expires_in_secs: int
 
 
 class RANAuthResponse(BaseModel):

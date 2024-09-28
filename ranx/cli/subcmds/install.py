@@ -1,6 +1,6 @@
-import typer
 import subprocess
 
+import typer
 
 app = typer.Typer()
 

@@ -1,8 +1,8 @@
-from typing import Union, Optional
-
 import asyncio
-import uvicorn
 import threading
+from typing import Optional, Union
+
+import uvicorn
 
 
 class UvicornServerProcess:
@@ -16,11 +16,11 @@ class UvicornServerProcess:
     def end(self, verbose: bool = False):
         if verbose:
             print("Shutting down server...")
-        
+
         self.server.should_exit = True
         self.server.force_exit = True
         asyncio.run(self.server.shutdown())
-        
+
         if verbose:
             print("Server Stopped")
 
@@ -31,7 +31,7 @@ class UvicornServerProcess:
 
     def from_server(server: uvicorn.Server):
         server_thread = threading.Thread(target=server.run)
-        
+
         return UvicornServerProcess(server, server_thread)
 
 

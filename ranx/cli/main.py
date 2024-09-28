@@ -1,11 +1,10 @@
 import typer
-from ranx.cli.subcmds import install
-
 import uvicorn
-from ranx.server import UvicornServerProcess
-from ranx import server
 
-from ranx.state import kill_server, set_auth_flow_state, AuthFlowState
+from ranx import server
+from ranx.cli.subcmds import install
+from ranx.server import UvicornServerProcess
+from ranx.state import AuthFlowState, kill_server, set_auth_flow_state
 
 # Dev / Testing stuff
 # import asyncio
@@ -27,10 +26,7 @@ def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = 
 
     # Create the server
     config = uvicorn.Config(
-        "ranx.api.main:app",
-        host=host,
-        port=port,
-        log_level=("info" if verbose else "critical")
+        "ranx.api.main:app", host=host, port=port, log_level=("info" if verbose else "critical")
     )
     fastapi_server = uvicorn.Server(config)
 
@@ -50,7 +46,7 @@ def close_auth_server(verbose: bool = False):
 # @app.command()
 # def test():
 #     """For testing purposes"""
-#     
+#
 #     print("Starting Server...")
 #     config = uvicorn.Config(
 #         "ranx.api.main:app",
@@ -87,4 +83,3 @@ def close_auth_server(verbose: bool = False):
 # Start the Typer CLI
 if __name__ == "__main__":
     app()
-
