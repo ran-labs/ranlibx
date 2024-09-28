@@ -38,7 +38,7 @@ hatch = "*"
 # ranx = "python3 ranx/cli/main.py"
 
 [tool.pixi.feature.devdeps.tasks]
-build = "hatch build ./release"
+build = "hatch build ./dist"
 
 [tool.pixi.environments]
 dev = { features = ["devdeps"] }
