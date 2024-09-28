@@ -42,6 +42,3 @@ build = "hatch build ./dist"
 [tool.pixi.environments]
 dev = { features = ["devdeps"] }
 prod = { features = [] }
-
-[tool.ruff]
-target-version = "py39"

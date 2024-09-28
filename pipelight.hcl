@@ -1,4 +1,3 @@
-# A pipeline
 pipelines = [
   {
     name = "fmt-n-lint"

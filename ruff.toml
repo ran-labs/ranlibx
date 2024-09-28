@@ -1,4 +1,4 @@
-extend = "./pyproject.toml"
+target-version = "py39"
 
 line-length = 99
 indent-width = 4
@@ -49,10 +49,10 @@ ignore = [
 
 # Only these rules are fixable when doing `ruff check --fix`
 fixable = [
-  "E401",
-  "E703",
-  "E711",
-  "I",
-  "W191",
+  "E401",  # multiple imports on 1 line
+  "E703",  # unnecessary semicolon
+  "E711",  # None comparison should be `cond is None`
+  "I",     # anything under import sorting
+  "W191",  # indentation contains tabs rather than spaces
+  "W291",  # trailing whitespace
 ]
-
