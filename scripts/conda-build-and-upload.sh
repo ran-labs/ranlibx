@@ -2,12 +2,12 @@
 
 # This file assumes you already have the prerequisites installed
 
+# Find the built PyPI package
+pypi_build=$(find ./dist -maxdepth 1 -type f -name "*.tar.gz" | head -n 1)
+
 # make temp directory
 mkdir temp
 cd temp
-
-# Find the built PyPI package
-pypi_build=$(find ./dist -maxdepth 1 -type f -name "*.tar.gz" | head -n 1)
 
 # Generate a meta.yaml from the local pypi build that already happened
 grayskull pypi "$pypi_build"
