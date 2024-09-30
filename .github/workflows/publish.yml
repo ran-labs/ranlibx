@@ -33,10 +33,13 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+      
+      - name: Install rattler-build, grayskull, and conda-recipe-manager
+        run: pixi global install rattler-build grayskull conda-recipe-manager
 
       # Now for uploading the conda packages
       - name: Build conda package & upload
-        run: scripts/fresh-conda-build-and-upload.sh
+        run: scripts/conda-build-and-upload.sh
         env:
           PREFIX_DEV_TOKEN: ${{ secrets.PREFIX_DEV_TOKEN }}
           #ANACONDA_TOKEN: ${{secrets.ANACONDA_TOKEN}}

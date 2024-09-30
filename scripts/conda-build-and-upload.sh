@@ -6,8 +6,11 @@
 mkdir temp
 cd temp
 
-# Generate a meta.yaml
-grayskull pypi ranlibx
+# Find the built PyPI package
+pypi_build=$(find ./dist -maxdepth 1 -type f -name "*.tar.gz" | head -n 1)
+
+# Generate a meta.yaml from the local pypi build that already happened
+grayskull pypi "$pypi_build"
 
 # Convert meta.yaml to a recipe.yaml
 conda-recipe-manager convert ranlibx/meta.yaml > ./recipe.yaml
@@ -23,8 +26,8 @@ cd ..
 rm -rf temp
 
 # Get the .conda file to upload
-build=$(find ./scripts/output/noarch -maxdepth 1 -type f -name "*.conda" | head -n 1)
+conda_build=$(find ./scripts/output/noarch -maxdepth 1 -type f -name "*.conda" | head -n 1)
 
 # Upload to prefix.dev
-pixi run -e dev python3 scripts/upload-prefixdev.py "$build" "$PREFIX_DEV_TOKEN"
+pixi run -e dev python3 scripts/upload-prefixdev.py "$conda_build" "$PREFIX_DEV_TOKEN"
 
