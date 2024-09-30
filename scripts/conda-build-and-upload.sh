@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "Hello World"
 
 # Install rattler-build, grayskull, and conda-recipe-manager
 pixi global install rattler-build grayskull conda-recipe-manager
