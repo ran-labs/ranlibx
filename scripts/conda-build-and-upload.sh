@@ -25,4 +25,4 @@ rm -rf temp
 build=$(find ./output/noarch -maxdepth 1 -type f -name "*.conda" | head -n 1)
 
 # Upload to prefix.dev
-python3 scripts/upload-prefixdev.py "$build" "$PREFIX_DEV_TOKEN"
+pixi run -e dev python3 scripts/upload-prefixdev.py "$build" "$PREFIX_DEV_TOKEN"
