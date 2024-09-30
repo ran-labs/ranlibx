@@ -33,3 +33,21 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+      # Now for uploading the conda packages
+      # - name: Install rattler-build
+      #   run: pixi global install rattler-build
+      # 
+      # - name: Build it for conda with rattler-build
+      #   run: rattler-build [TODO]
+      #
+      # - name: Upload to Prefix
+      #   run: python3 scripts/upload-prefixdev.py [TODO - PUT .conda HERE] $PREFIX_TOKEN
+      #   env:
+      #     PREFIX_TOKEN: ${{ secrets.PREFIX_DEV_TOKEN }}
+      # 
+      # - name: Upload to Anaconda
+      #   run: anaconda upload [TODO - put .conda HERE]
+      #   env:
+      #     ANACONDA_TOKEN: ${{secrets.ANACONDA_TOKEN}}
+

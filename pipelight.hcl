@@ -4,11 +4,11 @@ pipelines = [
     steps = [
       {
         name     = "format"
-        commands = ["ruff format ranx"]
+        commands = ["ruff format ranlibx"]
       },
       {
         name     = "lint"
-        commands = ["ruff check ranx --fix"]
+        commands = ["ruff check ranlibx --fix"]
       }
     ]
     triggers = [{

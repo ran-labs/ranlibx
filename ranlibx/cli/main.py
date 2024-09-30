@@ -1,10 +1,10 @@
 import typer
 import uvicorn
 
-from ranx import server
-from ranx.cli.subcmds import install
-from ranx.server import UvicornServerProcess
-from ranx.state import AuthFlowState, kill_server, set_auth_flow_state
+from ranlibx import server
+from ranlibx.cli.subcmds import install
+from ranlibx.server import UvicornServerProcess
+from ranlibx.state import AuthFlowState, kill_server, set_auth_flow_state
 
 # Dev / Testing stuff
 # import asyncio
@@ -49,7 +49,7 @@ def close_auth_server(verbose: bool = False):
 #
 #     print("Starting Server...")
 #     config = uvicorn.Config(
-#         "ranx.api.main:app",
+#         "ranlibx.api.main:app",
 #         host="0.0.0.0",
 #         port=8000,
 #         log_level="critical"

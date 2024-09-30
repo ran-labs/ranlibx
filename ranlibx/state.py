@@ -1,6 +1,6 @@
 from enum import Enum
 
-from ranx import server
+from ranlibx import server
 
 
 class AuthFlowState(Enum):

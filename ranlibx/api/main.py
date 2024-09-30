@@ -16,9 +16,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 
-from ranx.api import auth
-from ranx.constants import RAN_DOMAIN  # ran.so
-from ranx.state import kill_server
+from ranlibx.api import auth
+from ranlibx.constants import RAN_DOMAIN  # ran.so
+from ranlibx.state import kill_server
 
 app = FastAPI(title="RANx (Global)", contact={"name": "Anemo AI", "email": "support@anemo.ai"})
 

@@ -5,8 +5,8 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
-from ranx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
-from ranx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
+from ranlibx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
+from ranlibx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
 
 # Prefix: /auth
 router = APIRouter(tags=["Authentication"])
