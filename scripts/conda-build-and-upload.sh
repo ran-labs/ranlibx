@@ -3,7 +3,8 @@
 # This file assumes you already have the prerequisites installed
 
 # make temp directory
-mkdir temp && cd temp
+mkdir temp
+cd temp
 
 # Generate a meta.yaml
 grayskull pypi ranlibx
