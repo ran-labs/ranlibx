@@ -27,8 +27,15 @@ def upload(fn, token: str):
         "Content-Length": str(len(data) + 1),
         "Content-Type": "application/octet-stream",
     }
-
-    r = httpx.post(channel, data=data, headers=headers)
+    
+    print("Uploading conda package...")
+    r = httpx.post(
+        url=channel,
+        data=data,
+        headers=headers,
+        timeout=30.0,  # 30 seconds timeout
+    )
+    
     print(f"Uploaded package {name} with status  {r.status_code}")
 
  

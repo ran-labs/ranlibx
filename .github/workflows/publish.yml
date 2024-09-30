@@ -36,7 +36,7 @@ jobs:
 
       # Now for uploading the conda packages
       - name: Build conda package & upload
-        run: scripts/conda-build-and-upload.sh
+        run: scripts/fresh-conda-build-and-upload.sh
         env:
           PREFIX_DEV_TOKEN: ${{ secrets.PREFIX_DEV_TOKEN }}
           #ANACONDA_TOKEN: ${{secrets.ANACONDA_TOKEN}}
