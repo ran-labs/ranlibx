@@ -2606,9 +2606,9 @@ packages:
   requires_python: '>=3.8'
 - kind: pypi
   name: ranlibx
-  version: 0.0.20
+  version: 0.0.21
   path: .
-  sha256: 416790d2e200e9b81323a14c01079f1ebfa7e70a3533426f4d94194a864e818e
+  sha256: 2c804590437acc41f84641f9591025e62e685d3a25f23dc55fba7ce2c4b47f3b
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13
