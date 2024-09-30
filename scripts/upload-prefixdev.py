@@ -24,25 +24,25 @@ def upload(fn, token: str):
         "X-File-Name": name,
         "X-File-SHA256": sha256,
         "Authorization": f"Bearer {token}",
-        "Content-Length": str(len(data) + 1),
+        #"Content-Length": str(len(data) + 1),
         "Content-Type": "application/octet-stream",
     }
-    
+
     print("Uploading conda package...")
     r = httpx.post(
         url=channel,
         data=data,
         headers=headers,
-        timeout=30.0,  # 30 seconds timeout
+        timeout=None,  # 30 seconds timeout
     )
-    
-    print(f"Uploaded package {name} with status  {r.status_code}")
+
+    print(f"Uploaded package {name} with status {r.status_code}")
 
  
 if __name__ == "__main__":
     if len(sys.argv) > 2:
         package = Path(sys.argv[1])  # get path
-        token: str = f"pfx_vr2XPfxpByKvGVhzr{sys.argv[2]}"
+        token: str = sys.argv[2]
         upload(package, token)
     else:
         print("Usage: upload-prefixdev.py <package> <token>")
