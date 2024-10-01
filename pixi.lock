@@ -1934,7 +1934,7 @@ packages:
   name: ranlibx
   version: 0.0.22
   path: .
-  sha256: c235fdc5ef26ce2761bcd325942abfe71102e95137ede375b305cc9303e28d6c
+  sha256: f79d009ab5f0a8e861ea11bc449277e47a2ec47b62049e9573e87a45659099d4
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13

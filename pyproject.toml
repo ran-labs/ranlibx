@@ -39,6 +39,7 @@ pytest = ">=8.3.3,<9"
 ## ranx = "python3 ranlibx/cli/main.py"
 
 [tool.pixi.feature.fdev.tasks]
+setup = "pipelight enable git-hooks"
 build = "hatch build ./dist"
 
 [tool.pixi.environments]

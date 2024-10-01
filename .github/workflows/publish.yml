@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+    tags: [ 'vx.x.x' ]
   release:
     types: [created]
 
