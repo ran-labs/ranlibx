@@ -34,5 +34,5 @@ To do releases:
 4. Create a release like so:
 
 ```bash
-gh release create 
+gh release create vX.X.X ./dist/* --generate-notes
 ```
