@@ -26,3 +26,13 @@ pixi run -e dev setup  # This just runs `pipelight enable git-hooks` WHICH IS MA
 # If you want to access the shell, similar to `micromamba activate` or `conda activate` (highly recommended during development)
 pixi shell --change-ps1=false -e dev
 ```
+
+To do releases:
+1. After committing your code changes, change the version in `pyproject.toml`
+2. Run `scripts/update-version.sh`. It will make an update version commit on your behalf
+3. Push your code
+4. Create a release like so:
+
+```bash
+gh release create 
+```
