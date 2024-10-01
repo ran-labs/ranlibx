@@ -2,9 +2,9 @@ name: Publish
 
 on:
   push:
+    tags: [ 'vx.x.x' ]
     branches:
       - main
-    tags: [ 'vx.x.x' ]
   release:
     types: [created]
 
