@@ -1,14 +1,15 @@
 name: Publish
 
 on:
-  release:
-    types:
-      - created
-      - published
+  push:
+    tags:
+      - "v*"
+    branches:
+      - main
 
 jobs:
   publish:
-    name: "Publish release"
+    name: "Build & Publish package"
     runs-on: ubuntu-latest
 
     steps:
@@ -43,3 +44,13 @@ jobs:
           PREFIX_DEV_TOKEN: ${{ secrets.PREFIX_DEV_TOKEN }}
           #ANACONDA_TOKEN: ${{secrets.ANACONDA_TOKEN}}
 
+      # Create GitHub release
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" "./dist/*" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${tag#v}" \
+              --generate-notes
