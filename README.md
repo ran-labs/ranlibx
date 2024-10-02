@@ -5,11 +5,13 @@ For now, its purpose is for opening and closing receiver servers for auth throug
 
 **NOTE: This is designed to be installed GLOBALLY (e.g. via `pipx` or `pixi global`). This is so that users need only install it on their system one time and that's it.**
 
-## Usage
+## Installation
 
 ```bash
 pipx install ranlibx
 ```
+
+## Usage
 
 ```bash
 ranx --help
@@ -18,6 +20,7 @@ ranx --help
 ## Development
 
 Prequisites: you must have [pixi](https://pixi.sh) and [pipelight](https://pipelight.dev) installed.
+
 ```bash
 # Install dependencies
 pixi install -e dev
@@ -30,10 +33,10 @@ pixi shell --change-ps1=false -e dev
 To do releases:
 1. After committing your code changes, change the version in `pyproject.toml`
 2. Run `scripts/update-version.sh`. It will make an update version commit on your behalf
-3. Create a release and push your code like so:
+3. Create a release by pushing your code like so:
 
 ```bash
-git tag v1.2.3
 git push origin main v1.2.3
 ```
 
+Not abstracting requiring the v[VERSION] tag was an intentional design decision almost as a "confirmation" of whether you want to release.

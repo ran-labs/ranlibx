@@ -7,4 +7,7 @@ git status
 git add pyproject.toml
 git add pixi.lock
 
-git commit -m "[UPDATED VERSION]"
+version=$(python3 scripts/helpers/read-version.py)
+
+git tag "v$version"
+git commit -m "[UPDATE] v$version"

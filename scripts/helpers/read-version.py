@@ -1,0 +1,14 @@
+import sys
+import tomli
+from ranlibx.constants import RANLIBX_PROJECT_ROOT
+
+
+if __name__ == "__main__":
+    # Read the new version
+    with open(f"{RANLIBX_PROJECT_ROOT}/pyproject.toml", 'rb') as pyproject_dot_toml_file:
+        pyproject_dot_toml: dict = tomli.load(pyproject_dot_toml_file)
+
+    version: str = pyproject_dot_toml["project"]["version"]
+    
+    sys.stdout(version)
+    sys.exit(0)
