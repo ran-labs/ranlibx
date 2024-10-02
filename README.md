@@ -33,9 +33,4 @@ pixi shell --change-ps1=false -e dev
 To do releases:
 1. After committing your code changes, change the version in `pyproject.toml`
 2. Run `scripts/update-version.sh`. It will make an update version commit on your behalf
-3. Create a release by pushing your code like so:
-
-```bash
-git push origin main v1.2.3
-```
 
