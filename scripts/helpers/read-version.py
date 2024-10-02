@@ -10,5 +10,5 @@ if __name__ == "__main__":
 
     version: str = pyproject_dot_toml["project"]["version"]
     
-    sys.stdout(version)
+    sys.stdout.write(version)
     sys.exit(0)
