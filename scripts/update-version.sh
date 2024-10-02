@@ -9,5 +9,7 @@ git add pixi.lock
 
 version=$(python3 scripts/helpers/read-version.py)
 
-git tag "v$version"
 git commit -m "[UPDATE] v$version"
+
+# Must happen after or else will point to a previous commit
+git tag "v$version"

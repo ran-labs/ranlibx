@@ -1932,9 +1932,9 @@ packages:
   requires_python: '>=3.8'
 - kind: pypi
   name: ranlibx
-  version: 0.0.25
+  version: 0.0.30
   path: .
-  sha256: bb2db66f8f4634843a6ad126edced8d83c4a53f9661316ac7e5ca53c51eddceb
+  sha256: 1808d4b486d67c289025d04e2d8182acb8eeeb106440e6662ab27e55bf101878
   requires_dist:
   - fastapi>=0.112.2,<0.113
   - typer>=0.12.5,<0.13
@@ -1944,6 +1944,8 @@ packages:
   - email-validator>=2.2.0,<3
   - rich>=13.8.1,<14
   - hatch>=1.12.0,<2 ; extra == 'fdev'
+  - pytest ; extra == 'fdev'
+  - tomli ; extra == 'fdev'
   requires_python: '>=3.9'
   editable: true
 - kind: conda
