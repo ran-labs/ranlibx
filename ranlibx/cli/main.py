@@ -47,6 +47,7 @@ def close_auth_server(verbose: bool = False):
 def ping():
     print("ranx exists!")
 
+
 # @app.command()
 # def test():
 #     """For testing purposes"""
