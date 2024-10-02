@@ -39,4 +39,3 @@ To do releases:
 git push origin main v1.2.3
 ```
 
-Not abstracting requiring the v[VERSION] tag was an intentional design decision almost as a "confirmation" of whether you want to release.
