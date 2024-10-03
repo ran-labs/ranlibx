@@ -11,7 +11,7 @@ def modify_recipe(recipe_path: str):
 
     # For whatever reason, rattler-build does not copy in the LICENSE so we have to take it manually
     # Luckily, since the repo is public, we have a free automation by using the LICENSE in our own repo!
-    LICENSE_URL: str = "https://raw.githubusercontent.com/anemo-ai/ranlibx/refs/heads/main/LICENSE"
+    LICENSE_URL: str = "https://raw.githubusercontent.com/ran-labs/ranlibx/refs/heads/main/LICENSE"
     curl_cmd: str = f"curl {LICENSE_URL} -o ./LICENSE"
 
     # Python install command

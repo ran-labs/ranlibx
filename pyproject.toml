@@ -1,6 +1,6 @@
 [project]
 name = "ranlibx"
-version = "0.1.0"
+version = "0.1.1"
 description = "Global interface for RAN"
 authors = [{ name = "Ameer Arsala", email = "ameer.arsala03@gmail.com" }]
 readme = "README.md"
@@ -17,13 +17,13 @@ dependencies = [
 requires-python = ">= 3.9"
 
 [project.urls]
-Repository = "https://github.com/anemo-ai/ranlibx"
-Changelog = "https://github.com/anemo-ai/ranlibx/blob/main/CHANGELOG.md"
+Repository = "https://github.com/ran-labs/ranlibx"
+Changelog = "https://github.com/ran-labs/ranlibx/blob/main/CHANGELOG.md"
 Homepage = "https://ran.so"
 Documentation = "https://ran.so/docs"
-Source = "https://github.com/anemo-ai/ranlibx"
-Tracker = "https://github.com/anemo-ai/ranlibx/issues"
-Twitter = "https://twitter.com/AnemoDotAI"
+Source = "https://github.com/ran-labs/ranlibx"
+Tracker = "https://github.com/ran-labs/ranlibx/issues"
+Twitter = "https://twitter.com/RANdotSO"
 
 [project.scripts]
 ranx = "ranlibx.cli.main:app"
