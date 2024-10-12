@@ -1,12 +1,11 @@
 import typer
 import uvicorn
 
-from ranlibx import server, authentication
+from ranlibx import authentication, server
+from ranlibx.api.schemas.token import AuthToken
 from ranlibx.cli.subcmds import install
 from ranlibx.server import UvicornServerProcess
 from ranlibx.state import AuthFlowState, kill_server, set_auth_flow_state
-
-from ranlibx.api.schemas.token import AuthToken
 
 # Dev / Testing stuff
 # import asyncio
@@ -60,7 +59,7 @@ def authenticate_token(token: str):
 @app.command()
 def validate_token(token: str):
     """Validates authenticity of a token"""
-    
+
     valid: bool = authentication.is_token_valid(AuthToken(token=token))
 
     if not valid:

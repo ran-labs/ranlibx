@@ -1,5 +1,7 @@
-import httpx
 import json
+
+import httpx
+
 from ranlibx.api.schemas.token import AuthToken
 from ranlibx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
 
@@ -22,7 +24,7 @@ def authenticate(token: AuthToken, verbose: bool = True) -> bool:
         valid: bool = is_token_valid(token)
         if not valid:
             raise Exception("Invalid API Token.")
-        
+
         # Store it somewhere
         store_token(token)
 
