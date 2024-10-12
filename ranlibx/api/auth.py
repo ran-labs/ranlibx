@@ -5,8 +5,13 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
+from ranlibx.api.schemas.token import AuthToken
+
+from ranlibx import authentication
 from ranlibx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
 from ranlibx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
+
+from ranlibx import authentication
 
 # Prefix: /auth
 router = APIRouter(tags=["Authentication"])
@@ -30,11 +35,6 @@ async def ran_auth_listen_state():
     return {"success": success}
 
 
-class AuthToken(BaseModel):
-    value: str
-    # expires_in_secs: int
-
-
 class RANAuthResponse(BaseModel):
     success: bool
     message: str = ""
@@ -45,12 +45,13 @@ class RANAuthResponse(BaseModel):
 async def ran_auth_callback(auth_response: RANAuthResponse):
     # Handle Response
     if auth_response.success:
-        try:
-            # Store it somewhere
-            store_token(auth_response.auth_token)
-            print("Authentication Successful!")
-        except Exception as e:
-            print(f"Error: {e}")
+        # No verbosity since we already have error messages here
+        success: bool = authentication.authenticate(auth_response.auth_token, verbose=False)
+
+        if success is False:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or Expired API Token")
+
+        # Otherwise, it's successful
 
         # Effect: will complete any listeners
         set_auth_flow_state(AuthFlowState.SUCCESS)
@@ -59,8 +60,3 @@ async def ran_auth_callback(auth_response: RANAuthResponse):
 
         # Effect: will complete any listeners
         set_auth_flow_state(AuthFlowState.FAILURE)
-
-
-def store_token(token: AuthToken):
-    with open(RAN_AUTH_TOKEN_FILEPATH_JSON, 'w') as dot_ranprofile:
-        json.dump(token.dict(), dot_ranprofile)

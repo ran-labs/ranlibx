@@ -1,10 +1,12 @@
 import typer
 import uvicorn
 
-from ranlibx import server
+from ranlibx import server, authentication
 from ranlibx.cli.subcmds import install
 from ranlibx.server import UvicornServerProcess
 from ranlibx.state import AuthFlowState, kill_server, set_auth_flow_state
+
+from ranlibx.api.schemas.token import AuthToken
 
 # Dev / Testing stuff
 # import asyncio
@@ -19,6 +21,7 @@ app = typer.Typer(rich_markup_mode="rich")
 app.add_typer(install.app, name="install")
 
 
+# FYI 127.0.0.1 is localhost
 @app.command()
 def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = False):
     """Opens a Server for RAN Authentication"""
@@ -41,6 +44,27 @@ def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = 
 def close_auth_server(verbose: bool = False):
     """Closes the RAN Authentication Server"""
     kill_server(verbose=verbose)
+
+
+@app.command()
+def authenticate_token(token: str):
+    """Authenticates given a token"""
+
+    # No verbosity since we already have error messages here
+    success: bool = authentication.authenticate(AuthToken(token=token), verbose=False)
+
+    if not success:
+        raise Exception("Invalid or Expired API Token.")
+
+
+@app.command()
+def validate_token(token: str):
+    """Validates authenticity of a token"""
+    
+    valid: bool = authentication.is_token_valid(AuthToken(token=token))
+
+    if not valid:
+        raise Exception("Invalid or Expired API Token.")
 
 
 @app.command()
