@@ -3,7 +3,7 @@ import json
 import httpx
 
 from ranlibx.api.schemas.token import AuthToken
-from ranlibx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON, RAN_API_SERVER_URL
+from ranlibx.constants import RAN_API_SERVER_URL, RAN_AUTH_TOKEN_FILEPATH_JSON
 
 
 def store_token(token: AuthToken):
@@ -14,14 +14,14 @@ def store_token(token: AuthToken):
 def read_token() -> AuthToken:
     with open(RAN_AUTH_TOKEN_FILEPATH_JSON, 'r') as dot_ranprofile:
         data: dict = json.load(dot_ranprofile)
-    
+
     auth_token: AuthToken = AuthToken(**data)
-    
+
     # some small checking just in case
     MIN_TOKEN_LEN: int = 5
     if len(auth_token.token) < MIN_TOKEN_LEN:
         raise Exception("Not a token")
-    
+
     return auth_token
 
 
@@ -30,7 +30,7 @@ def is_token_valid(token: AuthToken) -> bool:
     try:
         res = httpx.post(
             url=f"{RAN_API_SERVER_URL}/v1/auth/cli/are_credentials_valid",
-            headers={"Authorization": f"Bearer {token.token}"}
+            headers={"Authorization": f"Bearer {token.token}"},
         )
 
         if not res.is_success:
