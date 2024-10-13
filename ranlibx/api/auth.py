@@ -5,31 +5,13 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
-from ranlibx import authentication
+from ranlibx import authentication, state
 from ranlibx.api.schemas.token import AuthToken
 from ranlibx.constants import RAN_AUTH_TOKEN_FILEPATH_JSON
-from ranlibx.state import AUTH_FLOW_STATE, AuthFlowState, set_auth_flow_state
+from ranlibx.state import AuthFlowState
 
 # Prefix: /auth
 router = APIRouter(tags=["Authentication"])
-
-
-@router.get("/listen_for_completion")
-async def ran_auth_listen_state():
-    # NOTE: IN_PROGRESS must be initiated via the CLI
-    if AUTH_FLOW_STATE != AuthFlowState.IN_PROGRESS:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Authentication Flow must be in progress"
-        )
-
-    while AUTH_FLOW_STATE == AuthFlowState.IN_PROGRESS:
-        # Stall
-        # pass
-        time.sleep(0.5)
-
-    success: bool = AUTH_FLOW_STATE == AuthFlowState.SUCCESS
-
-    return {"success": success}
 
 
 class RANAuthResponse(BaseModel):
@@ -53,9 +35,9 @@ async def ran_auth_callback(auth_response: RANAuthResponse):
         # Otherwise, it's successful
 
         # Effect: will complete any listeners
-        set_auth_flow_state(AuthFlowState.SUCCESS)
+        state.set_auth_flow_state(AuthFlowState.SUCCESS)
     else:
         print("Error: " + auth_response.message)
 
         # Effect: will complete any listeners
-        set_auth_flow_state(AuthFlowState.FAILURE)
+        state.set_auth_flow_state(AuthFlowState.FAILURE)

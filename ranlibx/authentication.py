@@ -1,5 +1,5 @@
 import json
-
+import typer
 import httpx
 
 from ranlibx.api.schemas.token import AuthToken
@@ -57,10 +57,10 @@ def authenticate(token: AuthToken, verbose: bool = True) -> bool:
         # Store it somewhere
         store_token(token)
 
-        print("Authentication Successful!")
+        typer.echo("Authentication Successful!")
         return True
     except Exception as e:
         if verbose:
-            print(f"Error: {e}")
+            typer.echo(f"Error: {e}")
 
         return False

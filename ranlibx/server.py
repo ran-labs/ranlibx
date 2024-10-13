@@ -1,44 +1,50 @@
-import asyncio
-import threading
 from typing import Optional, Union
 
+import asyncio
+import threading
+import time
+
 import uvicorn
+import typer
+
+
+def stop_server(userver: uvicorn.Server):
+    userver.should_exit = True
+    userver.force_exit = True
+    asyncio.run(userver.shutdown())
 
 
 class UvicornServerProcess:
-    def __init__(self, server: uvicorn.Server, server_thread: threading.Thread):
+    def __init__(self, server: uvicorn.Server):
         self.server = server
-        self.server_thread = server_thread
+        self.server_thread = None  # type: threading.Thread
 
-    def start(self):
+    def start(self, verbose: bool = False):
+        # Set it
+        self.server_thread = threading.Thread(target=self.server.run)
+        
+        # Start it
         self.server_thread.start()
+        
+        # not sure why this has to be included but it works and breaks without it
+        time.sleep(0.5)
+
+        if verbose:
+            typer.echo("Started server.")
 
     def end(self, verbose: bool = False):
         if verbose:
-            print("Shutting down server...")
+            typer.echo("Shutting down server...")
 
-        self.server.should_exit = True
-        self.server.force_exit = True
-        asyncio.run(self.server.shutdown())
+        stop_server(self.server)
 
         if verbose:
-            print("Server Stopped")
+            typer.echo("Server Stopped")
 
         # Wait for the server thread to fully terminate
         self.server_thread.join()
 
         # After that, do whatever you want
 
-    def from_server(server: uvicorn.Server):
-        server_thread = threading.Thread(target=server.run)
-
-        return UvicornServerProcess(server, server_thread)
-
 
 active_uvicorn_server_process: UvicornServerProcess = None
-
-
-def set_active_uvicorn_server_process(process: UvicornServerProcess):
-    global active_uvicorn_server_process
-
-    active_uvicorn_server_process = process
