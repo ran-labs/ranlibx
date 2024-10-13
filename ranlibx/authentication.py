@@ -1,6 +1,7 @@
 import json
-import typer
+
 import httpx
+import typer
 
 from ranlibx.api.schemas.token import AuthToken
 from ranlibx.constants import RAN_API_SERVER_URL, RAN_AUTH_TOKEN_FILEPATH_JSON

@@ -1,11 +1,10 @@
-from typing import Optional, Union
-
 import asyncio
 import threading
 import time
+from typing import Optional, Union
 
-import uvicorn
 import typer
+import uvicorn
 
 
 def stop_server(userver: uvicorn.Server):
@@ -22,10 +21,10 @@ class UvicornServerProcess:
     def start(self, verbose: bool = False):
         # Set it
         self.server_thread = threading.Thread(target=self.server.run)
-        
+
         # Start it
         self.server_thread.start()
-        
+
         # not sure why this has to be included but it works and breaks without it
         time.sleep(0.5)
 

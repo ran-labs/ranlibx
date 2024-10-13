@@ -14,8 +14,10 @@ _auth_flow_state: AuthFlowState = AuthFlowState.INACTIVE
 
 # Getters and Setters
 
+
 def get_auth_flow_state() -> AuthFlowState:
     return _auth_flow_state
+
 
 # Yes, this IS necessary to set the actual variable above from the outside
 def set_auth_flow_state(st: AuthFlowState):
