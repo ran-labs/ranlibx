@@ -1,6 +1,6 @@
 [project]
 name = "ranlibx"
-version = "0.1.2"
+version = "0.1.3"
 description = "Global interface for RAN"
 authors = [{ name = "Ameer Arsala", email = "ameer.arsala03@gmail.com" }]
 readme = "README.md"
