@@ -40,7 +40,9 @@ def open_auth_server(host: str = "127.0.0.1", port: int = 8000, verbose: bool = 
     server.active_uvicorn_server_process.start(verbose=verbose)
 
     # Send a message in terminal telling the user to go to the browser cli login
-    typer.echo(f"Go to https://ran.so/login/cli?callback_port={port} to log in (you'll come back here, dw)")
+    typer.echo(
+        f"Go to https://ran.so/login/cli?callback_port={port} to log in (you'll come back here, dw)"
+    )
 
     # Stall while in progress
     browser_auth_successful: bool = flow.wait_for_browser_auth(verbose=verbose)
